@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjetoAula04.Entities;
+using ProjetoAula04.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +31,7 @@ namespace ProjetoAula04.Controllers
                 switch (opcao)
                 {
                     case 1:
+                        CadastrarCliente();
                         break;
 
                     case 2:
@@ -64,6 +67,29 @@ namespace ProjetoAula04.Controllers
                 else
                     Console.WriteLine("\nFIM DO PROGRAMA!");
             }
+        }
+
+        //método privado para fazer o fluxo de cadastro do cliente
+        private void CadastrarCliente()
+        {
+            var cliente = new Cliente();
+
+            Console.WriteLine("\nCADASTRO DE CLIENTE\n");
+
+            Console.Write("ENTRE COM O NOME DO CLIENTE.......: ");
+            cliente.Nome = Console.ReadLine();
+
+            Console.Write("ENTRE COM O CPF DO CLIENTE........: ");
+            cliente.Cpf = Console.ReadLine();
+
+            Console.Write("ENTRE COM A DATA DE NASCIMENTO....: ");
+            cliente.DataNascimento = DateTime.Parse(Console.ReadLine());
+
+            var clienteRepository = new ClienteRepository();
+            clienteRepository.Create(cliente);
+
+            Console.WriteLine("\nCLIENTE CADASTRADO COM SUCESSO!\n");
+
         }
     }
 }
