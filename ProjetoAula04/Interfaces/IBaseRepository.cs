@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjetoAula04.Interfaces
 {
     /// <summary>
-    /// Interface ge´nérica para definição dos métodos do repositório
+    /// Interface genérica para definição dos métodos do repositório
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IBaseRepository<T>
