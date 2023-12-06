@@ -35,15 +35,19 @@ namespace ProjetoAula04.Controllers
                         break;
 
                     case 2:
+                        AtualizarCliente();
                         break;
 
                     case 3:
+                        ExluirCliente();
                         break;
 
                     case 4:
+                        ConsultarClientes();
                         break;
 
                     case 5:
+                        ConsultarClientesPorNome();
                         break;
 
                     default:
@@ -90,6 +94,102 @@ namespace ProjetoAula04.Controllers
 
             Console.WriteLine("\nCLIENTE CADASTRADO COM SUCESSO!\n");
 
+        }
+
+        //método privado para fazer o fluxo de atualizar o cliente
+        private void AtualizarCliente()
+        {
+            Console.WriteLine("\nATUALIZAR CLIENTE\n");
+
+            Console.Write("ENTRE COM O ID DO CLIENTE........: ");
+            var idCliente = Guid.Parse(Console.ReadLine());
+
+            //buscar o cliente no banco de dados com ID informado
+            var clienteRepository = new ClienteRepository();
+            var cliente = clienteRepository.GetById(idCliente);
+
+            //verificar se o cliente foi encontrado
+            if(cliente != null)
+            {
+                Console.Write("ENTRE COM O NOME DO CLIENTE..: ");
+                cliente.Nome = Console.ReadLine();
+
+                Console.Write("ENTRE COM O CPF DO CLIENTE...: ");
+                cliente.Cpf = Console.ReadLine();
+
+                Console.Write("ENTRE COM A DATA DE NASCIMENTO:");
+                cliente.Cpf = Console.ReadLine();
+
+                clienteRepository.Update(cliente);
+                Console.WriteLine("\nCLIENTE ATUALIZADO COM SUCESSO\n");
+            }
+            else
+            {
+                throw new Exception("Cliente não foi encontrado.");
+            }
+        }
+
+        //método privado para fazer o fluxo de excluir o cliente
+        private void ExluirCliente()
+        {
+            Console.WriteLine("\nEXCLUSÃO DE CLIENTE\n");
+
+            Console.Write("ENTRE COM O ID DO CLIENTE....: ");
+            var idCliente = Guid.Parse(Console.ReadLine());
+
+            //buscar o cliente no banco de dados com ID informado
+            var clienteRepository = new ClienteRepository();
+            var cliente = clienteRepository.GetById(idCliente);
+
+            //vevrificar se o cliente foi encontrado
+            if(cliente != null)
+            {
+                clienteRepository.Delete(cliente);
+                Console.WriteLine("\nCLIENTE EXCLUÍDO COM SUCESSO!\n");
+            }
+            else
+            {
+                throw new Exception("Cliente não foi encontrado.");
+            }
+        }
+
+        //método privado para fazer o fluxo de consulta dos clientes
+        private void ConsultarClientes()
+        {
+            Console.WriteLine("\nCONSULTA DE CLIENTES\n");
+
+            var clienteRepository = new ClienteRepository();
+
+            foreach (var item in clienteRepository.GetAll())
+            {
+                Console.WriteLine($"ID.....................: {item.IdCliente}");
+                Console.WriteLine($"NOME DO CLIENTE........: {item.Nome}");
+                Console.WriteLine($"CPF....................: {item.Cpf}");
+                Console.WriteLine($"DATA DE NASCIMENTO.....: {item.DataNascimento.ToString("dd/MM/yyyy")}");
+                Console.WriteLine("...");
+
+            }
+        }
+
+        //método privado para fazer o fluxo de consulta dos clientes por nome
+        private void ConsultarClientesPorNome()
+        {
+            Console.WriteLine("\nCONSULTA DE CLIENTES POR NOME\n");
+
+            Console.Write("ENTRE COM O NOME DO CLIENTE....: ");
+            var nome = Console.ReadLine();
+
+            var clienteRepository = new ClienteRepository();
+
+            foreach(var item in clienteRepository.GetByNome(nome))
+            {
+                Console.WriteLine($"ID.......................: {item.IdCliente}");
+                Console.WriteLine($"NOME DO CLIENTE..........: {item.Nome}");
+                Console.WriteLine($"CPF......................: {item.Cpf}");
+                Console.WriteLine($"DATA DE NASCIMENTO.......: {item.DataNascimento.ToString("dd/MM/yyyy")}");
+                Console.WriteLine("...");
+
+            }
         }
     }
 }
