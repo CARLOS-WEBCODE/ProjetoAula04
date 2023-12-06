@@ -109,7 +109,8 @@ namespace ProjetoAula04.Controllers
             var cliente = clienteRepository.GetById(idCliente);
 
             //verificar se o cliente foi encontrado
-            if(cliente != null)
+            //se for diferente de null é porque foi encontrado.
+            if (cliente != null) 
             {
                 Console.Write("ENTRE COM O NOME DO CLIENTE..: ");
                 cliente.Nome = Console.ReadLine();
@@ -118,7 +119,7 @@ namespace ProjetoAula04.Controllers
                 cliente.Cpf = Console.ReadLine();
 
                 Console.Write("ENTRE COM A DATA DE NASCIMENTO:");
-                cliente.Cpf = Console.ReadLine();
+                cliente.DataNascimento = DateTime.Parse(Console.ReadLine());
 
                 clienteRepository.Update(cliente);
                 Console.WriteLine("\nCLIENTE ATUALIZADO COM SUCESSO\n");

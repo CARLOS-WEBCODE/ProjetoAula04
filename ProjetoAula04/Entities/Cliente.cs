@@ -41,7 +41,7 @@ namespace ProjetoAula04.Entities
             {
                 //validar se o cpf está vazio
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentNullException("CPF do cliente é obrigatório.");
+                    throw new ArgumentException("CPF do cliente é obrigatório.");
 
                 //validar se i cpf possui 11 digítos numericos
                 else if (!new Regex("^[0-9]{11}$").IsMatch(value))
